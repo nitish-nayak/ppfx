@@ -62,7 +62,6 @@ namespace NeutrinoFluxReweight{
     vec_rws.reserve(Nuniverses);
     std::cout<<"Initializing reweight drivers for "<<Nuniverses<<" universes"<<std::endl;
     
-    const int base_universe=1000000;
     // cvPars.reserve(Nuniverses+1);
     univPars.reserve(Nuniverses+1);
 
@@ -171,4 +170,9 @@ namespace NeutrinoFluxReweight{
       delete instance; 
       instance = 0; 
    }
+  ////
+  void MakeReweight::setBaseSeed(int val) {
+     base_universe = val;
+     std::cout << "Updated base universe: " << base_universe << std::endl;
+  }
 }

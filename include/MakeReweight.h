@@ -67,6 +67,11 @@ namespace NeutrinoFluxReweight{
     //! Reweighter Drivers for the central value
     ReweightDriver* cv_rw;
 
+    bool AlreadyInitialized() {return init;};
+
+    //! Override the base universe seed used
+    void setBaseSeed(int val);
+
   private:    
     /*!
      * Inititalize the job and configurethe ReweighterDrivier
@@ -84,6 +89,9 @@ namespace NeutrinoFluxReweight{
     std::vector<double> vec_wgts;
     std::map<std::string,std::vector<double> > map_rew_wgts;
     double cv_wgt;
+    int base_universe = 1000000;
+    
+    bool init = false;
 
     static MakeReweight* instance;
     
