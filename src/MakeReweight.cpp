@@ -89,6 +89,9 @@ namespace NeutrinoFluxReweight{
 
     std::cout<<"Done configuring universes"<<std::endl;
 
+    // Done initializing.
+
+    init = true;
   }
   
   std::vector<double> MakeReweight::GetTotalWeights(){
