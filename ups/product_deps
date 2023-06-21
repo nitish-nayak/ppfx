@@ -254,7 +254,7 @@ table_fragment_end
 ####################################
 product		version		qual	flags		<table_format=2>
 dk2nudata	v01_10_01d	-
-dk2nugenie	v01_10_01i	-
+dk2nugenie	v01_10_01j	-
 ifdh_art	v2_15_06	-
 nufinder        v1_01_01       -
 nusimdata	v1_27_01	-
