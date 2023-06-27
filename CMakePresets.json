@@ -20,13 +20,13 @@
             },
             "ppfx_ADD_NOARCH_DIRS_INIT" : {
                "type" : "INTERNAL",
-               "value" : "INCLUDE_DIR"
+               "value" : "INCLUDE_DIR;FW_DIR"
             },
             "ppfx_BIN_DIR_INIT" : {
                "type" : "STRING",
                "value" : "bin"
             },
-            "ppfx_FW_SEARCH_PATH_INIT" : {
+            "ppfx_FW_DIR_INIT" : {
                "type" : "STRING",
                "value" : "xml"
             },

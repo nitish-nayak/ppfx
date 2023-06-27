@@ -1,8 +1,6 @@
 install_scripts()
 
-install( FILES
+install_fw(LIST
            inputs_default.xml
            inputs_imap.xml
-           inputs_mipp_numi.xml
-         DESTINATION xml/ )
-
+           inputs_mipp_numi.xml)

@@ -176,7 +176,7 @@ defaultqual	e20
 bindir	fq_dir		bin
 incdir	product_dir
 libdir	fq_dir		lib
-set_fwdir product_dir	xml
+fwdir	product_dir	xml
 
 ####################################
 
