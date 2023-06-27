@@ -26,6 +26,10 @@
                "type" : "STRING",
                "value" : "bin"
             },
+            "ppfx_FW_SEARCH_PATH_INIT" : {
+               "type" : "STRING",
+               "value" : "xml"
+            },
             "ppfx_LIBRARY_DIR_INIT" : {
                "type" : "STRING",
                "value" : "lib"
