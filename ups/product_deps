@@ -176,9 +176,7 @@ defaultqual	e20
 bindir	fq_dir		bin
 incdir	product_dir
 libdir	fq_dir		lib
-table_fragment_begin
-    pathPrepend(FW_SEARCH_PATH, ${PPFX_DIR}/xml)
-table_fragment_end
+set_fwdir product_dir	xml
 
 ####################################
 
