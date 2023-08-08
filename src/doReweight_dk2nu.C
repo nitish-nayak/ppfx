@@ -28,21 +28,21 @@ int idx_hel(int pdgdcode);
 
 /*!
  * Run the reweighting for a single file (inputFile) for
- * particular MIPP covariance matrix given in input.xml file. 
+ * particular MIPP covariance matrix given in input.xml file.
  */
-void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile){ 
-  
+void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile){
+
   const char* thisDir = getenv("PPFX_DIR");
   const char* OutputDir=thisDir;
- 
+
   std::cout<< "Instance of MakeReweight()" <<std::endl;
   MakeReweight* makerew = MakeReweight::getInstance();
-  makerew->SetOptions(optionsFile); 
-  
+  makerew->SetOptions(optionsFile);
+
   std::cout<<"Making an output file to store histograms"<<std::endl;
   TFile* fOut = new TFile(outputFile,"recreate");
   std::cout<<"File name: "<<fOut->GetName()<<std::endl;
-  
+
   fOut->mkdir("nom");
   for(int ii=0;ii<Nnuhel;ii++){
     fOut->mkdir(Form("%s_thintarget",nuhel[ii]));
@@ -52,9 +52,9 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     fOut->mkdir(Form("%s_total",nuhel[ii]));
   }
   std::cout<<"Done making the output file"<<std::endl;
-  
+
   int Nuniverses = makerew->GetNumberOfUniversesUsed();
-  
+
   TH1D* hnom[Nnuhel];
   TH1D* hcv[Nnuhel];
   TH1D* hthin[Nnuhel][Nuniverses];
@@ -62,7 +62,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   TH1D* hatt[Nnuhel][Nuniverses];
   TH1D* hothers[Nnuhel][Nuniverses];
   TH1D* htotal[Nnuhel][Nuniverses];
-  
+
   for(int ii=0;ii<Nnuhel;ii++){
     hnom[ii] = new TH1D(Form("hnom_%s",nuhel[ii]),"",NbinsE,emin,emax);
     hcv[ii]  = new TH1D(Form("hcv_%s",nuhel[ii]),"",NbinsE,emin,emax);
@@ -74,11 +74,11 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       htotal[ii][jj]  = new TH1D(Form("htotal_%s_%d", nuhel[ii],jj),"",NbinsE,emin,emax);
     }
   }
-  
+
   //Loading ntuples:
-  TChain* chain_evts   = new TChain("dk2nuTree");  
-  TChain* chain_meta   = new TChain("dkmetaTree");  
-  bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;  
+  TChain* chain_evts   = new TChain("dk2nuTree");
+  TChain* chain_meta   = new TChain("dkmetaTree");
+  bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;
   bsim::DkMeta* dkmeta = new bsim::DkMeta;
 
   std::cout<<" Adding ntuple at: "<<inputFile<<std::endl;
@@ -91,7 +91,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
 
   chain_evts->Add(inputFile);
   chain_evts->SetBranchAddress("dk2nu",&dk2nu);
-  int nentries  = chain_evts->GetEntries(); 
+  int nentries  = chain_evts->GetEntries();
 
   //declaring variables and branches for friend tree
   //TBranch *b_Nuniverses = chain_events->Branch("Nuniverses",&Nuniverses, "Nuniverses/I");//Does this vary across events?
@@ -104,8 +104,8 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
 
   chain_meta->Add(inputFile);
   chain_meta->SetBranchAddress("dkmeta",&dkmeta);
-  chain_meta->GetEntry(0); //all entries are the same     
-  
+  chain_meta->GetEntry(0); //all entries are the same
+
   std::vector<double> vwgt_mipp_pi;
   std::vector<double> vwgt_mipp_K;
   std::vector<double> vwgt_abs;
@@ -117,31 +117,31 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   std::vector<double> vwgt_ttnua;
   std::vector<double> vwgt_ttmesinc;
   std::vector<double> vwgt_oth;
- 
-  std::cout<<"N of entries: "<<nentries<<std::endl;
-  
 
-  for(int ii=0;ii<nentries;ii++){  
+  std::cout<<"N of entries: "<<nentries<<std::endl;
+
+
+  for(int ii=0;ii<nentries;ii++){
     if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
-    vwgt_mipp_pi.clear();  
-    vwgt_mipp_K.clear();  
-    vwgt_abs.clear();  
-    vwgt_att.clear();  
-    vwgt_ttpCpi.clear();  
-    vwgt_ttpCk.clear();  
-    vwgt_ttnCpi.clear();  
-    vwgt_ttpCnu.clear();  
+    vwgt_mipp_pi.clear();
+    vwgt_mipp_K.clear();
+    vwgt_abs.clear();
+    vwgt_att.clear();
+    vwgt_ttpCpi.clear();
+    vwgt_ttpCk.clear();
+    vwgt_ttnCpi.clear();
+    vwgt_ttpCnu.clear();
     vwgt_ttmesinc.clear();
-    vwgt_ttnua.clear();  
-    vwgt_oth.clear(); 
-     
-    chain_evts->GetEntry(ii);     
+    vwgt_ttnua.clear();
+    vwgt_oth.clear();
+
+    chain_evts->GetEntry(ii);
     makerew->calculateWeights(dk2nu,dkmeta);
-    
+
     double fluxWGT = ( (dk2nu->nuray)[1].wgt )*(dk2nu->decay.nimpwt)/3.1416;
     int nuidx = idx_hel(dk2nu->decay.ntype);
-    double nuenergy = (dk2nu->nuray)[1].E; 
-    
+    double nuenergy = (dk2nu->nuray)[1].E;
+
     if(nuidx<0){
       std::cout<<"=> Wrong neutrino file"<<std::endl;
     }
@@ -150,7 +150,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     hcv[nuidx]->Fill(nuenergy,fluxWGT*makerew->GetCVWeight());
 
     vwgt_mipp_pi = makerew->GetWeights("MIPPNumiPionYields");
-    vwgt_mipp_K  = makerew->GetWeights("MIPPNumiKaonYields"); 
+    vwgt_mipp_K  = makerew->GetWeights("MIPPNumiKaonYields");
     vwgt_abs     = makerew->GetWeights("TotalAbsorption");
     vwgt_att     = makerew->GetWeights("TargetAttenuation");
     vwgt_ttpCpi  = makerew->GetWeights("ThinTargetpCPion");
@@ -159,7 +159,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     vwgt_ttpCnu  = makerew->GetWeights("ThinTargetpCNucleon");
     vwgt_ttmesinc= makerew->GetWeights("ThinTargetMesonIncident");
     vwgt_ttnua   = makerew->GetWeights("ThinTargetnucleonA");
-    vwgt_oth     = makerew->GetWeights("Other"); 
+    vwgt_oth     = makerew->GetWeights("Other");
 
     cv_wgt=makerew->GetCVWeight();
 
@@ -185,7 +185,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   f_dk2nuTree->Write();//
 
   //Releasing memory:
-  makerew->resetInstance();  
+  makerew->resetInstance();
 
   //  chain_evts->AddFriend("dk2nuTree","f_"+inputfile);
   //chain_evts->Draw("cv_wgt");
@@ -200,15 +200,15 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       fOut->cd(Form("%s_mippnumi",nuhel[ii]));    hmipp[ii][jj]->Write();
       fOut->cd(Form("%s_attenuation",nuhel[ii])); hatt[ii][jj]->Write();
       fOut->cd(Form("%s_others",nuhel[ii]));      hothers[ii][jj]->Write();
-      fOut->cd(Form("%s_total",nuhel[ii]));       htotal[ii][jj]->Write();      
+      fOut->cd(Form("%s_total",nuhel[ii]));       htotal[ii][jj]->Write();
     }
   }
 
   std::cout<<"End of run()"<<std::endl;
- 
+
 
 }
-  
+
 int idx_hel(int pdgcode){
   int idx = -1;
   if(pdgcode ==  14)idx = 0;
@@ -222,7 +222,7 @@ int idx_hel(int pdgcode){
 
 #ifndef __CINT__
 int main(int argc, const char* argv[]){
-  
+
   doReweight_dk2nu(argv[1],argv[2],argv[3]);
   return 0;
 }

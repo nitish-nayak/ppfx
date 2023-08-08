@@ -4,11 +4,11 @@
 #include "ThinTargetBins.h"
 
 namespace NeutrinoFluxReweight{
-  
+
   ThinTargetMesonIncidentReweighter::ThinTargetMesonIncidentReweighter(int iuniv, const ParameterTable& cv_pars, const ParameterTable& univ_pars):iUniv(iuniv),cvPars(cv_pars),univPars(univ_pars){
-    
+
     ThinTargetBins* Thinbins =  ThinTargetBins::getInstance();
-    
+
     vbin_pip_inc_pip.reserve(Thinbins->GetNbins_meson_incident());
     vbin_pip_inc_pim.reserve(Thinbins->GetNbins_meson_incident());
     vbin_pip_inc_kap.reserve(Thinbins->GetNbins_meson_incident());
@@ -53,15 +53,15 @@ namespace NeutrinoFluxReweight{
     sprintf(namepar,"ThinTarget_mesonleftover_incident_%d",0);
     double dataval = univPars.getParameterValue(std::string(namepar));
     bin_mesonleftover_inc = dataval;
-    
+
     //5 incident particles, 7 produced particles:
     const char* cinc[5] = {"pip","pim","kap","kam","k0"};
     const char* cpro[7] = {"pip","pim","kap","kam","k0","p","n"};
-    
+
     for(int ii=0;ii<5;ii++){
       for(int jj=0;jj<7;jj++){
 	for(int kk=0;kk<Thinbins->GetNbins_meson_incident();kk++){
-	  
+
 	  sprintf(namepar,"ThinTarget_%s_incident_%s_%d",cinc[ii],cpro[jj],kk);
 	  dataval = univPars.getParameterValue(std::string(namepar));
 	  if(ii==0 && jj==0)vbin_pip_inc_pip.push_back(dataval);
@@ -103,28 +103,28 @@ namespace NeutrinoFluxReweight{
       }
     }
   }
-  
+
   ThinTargetMesonIncidentReweighter::~ThinTargetMesonIncidentReweighter(){
-    
+
   }
   bool ThinTargetMesonIncidentReweighter::canReweight(const InteractionData& aa){
-    /*    
+    /*
     if(aa.Inc_pdg != 211 && aa.Inc_pdg != -211 && aa.Inc_pdg != 321 && aa.Inc_pdg != -321 && aa.Inc_pdg != 130 && aa.Inc_pdg != 310)return false;
     if(aa.Prod_pdg != 211 && aa.Prod_pdg != -211 && aa.Prod_pdg != 321 && aa.Prod_pdg != -321 && aa.Prod_pdg != 130 && aa.Prod_pdg != 310 && aa.Prod_pdg != 2212 && aa.Prod_pdg != 2112)return false;
     */
     if(aa.Proc.find("Inelastic")>100)return false;
-    
+
     //  ThinTargetBins*  Thinbins =  ThinTargetBins::getInstance();
     //int bin      = Thinbins->meson_inc_BinID(aa.xF,aa.Pt,aa.Prod_pdg);
-    
+
     bool is_mesoninc = (aa.Inc_pdg >99 && aa.Inc_pdg < 1000) || (aa.Inc_pdg <-99 && aa.Inc_pdg > -1000);
 
     //    if(bin>=0 || is_mesoninc)return true;
     if(is_mesoninc)return true;
     else return false;
-    
+
   }
-  
+
   double ThinTargetMesonIncidentReweighter::calculateWeight(const InteractionData& aa){
 
     double wgt = 1.0;
@@ -147,7 +147,7 @@ namespace NeutrinoFluxReweight{
 	if(aa.Prod_pdg ==-321) wgt = vbin_pip_inc_kam[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_pip_inc_k0[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==2212) wgt = vbin_pip_inc_p[bin] * negxF_corrunc;
-	if(aa.Prod_pdg ==2112) wgt = vbin_pip_inc_n[bin] * negxF_corrunc;	
+	if(aa.Prod_pdg ==2112) wgt = vbin_pip_inc_n[bin] * negxF_corrunc;
       }
       else if(aa.Inc_pdg ==-211){
 	if(aa.Prod_pdg == 211) wgt = vbin_pim_inc_pip[bin] * negxF_corrunc;
@@ -156,7 +156,7 @@ namespace NeutrinoFluxReweight{
 	if(aa.Prod_pdg ==-321) wgt = vbin_pim_inc_kam[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_pim_inc_k0[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==2212) wgt = vbin_pim_inc_p[bin] * negxF_corrunc;
-	if(aa.Prod_pdg ==2112) wgt = vbin_pim_inc_n[bin] * negxF_corrunc;	
+	if(aa.Prod_pdg ==2112) wgt = vbin_pim_inc_n[bin] * negxF_corrunc;
       }
       else if(aa.Inc_pdg == 321){
 	if(aa.Prod_pdg == 211) wgt = vbin_kap_inc_pip[bin] * negxF_corrunc;
@@ -165,7 +165,7 @@ namespace NeutrinoFluxReweight{
 	if(aa.Prod_pdg ==-321) wgt = vbin_kap_inc_kam[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_kap_inc_k0[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==2212) wgt = vbin_kap_inc_p[bin] * negxF_corrunc;
-	if(aa.Prod_pdg ==2112) wgt = vbin_kap_inc_n[bin] * negxF_corrunc;	
+	if(aa.Prod_pdg ==2112) wgt = vbin_kap_inc_n[bin] * negxF_corrunc;
       }
       else if(aa.Inc_pdg ==-321){
 	if(aa.Prod_pdg == 211) wgt = vbin_kam_inc_pip[bin] * negxF_corrunc;
@@ -174,7 +174,7 @@ namespace NeutrinoFluxReweight{
 	if(aa.Prod_pdg ==-321) wgt = vbin_kam_inc_kam[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_kam_inc_k0[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==2212) wgt = vbin_kam_inc_p[bin] * negxF_corrunc;
-	if(aa.Prod_pdg ==2112) wgt = vbin_kam_inc_n[bin] * negxF_corrunc;	
+	if(aa.Prod_pdg ==2112) wgt = vbin_kam_inc_n[bin] * negxF_corrunc;
       }
       else if(aa.Inc_pdg == 130 || aa.Inc_pdg == 310){
 	if(aa.Prod_pdg == 211) wgt = vbin_k0_inc_pip[bin] * negxF_corrunc;
@@ -183,7 +183,7 @@ namespace NeutrinoFluxReweight{
 	if(aa.Prod_pdg ==-321) wgt = vbin_k0_inc_kam[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==130 || aa.Prod_pdg ==310) wgt = vbin_k0_inc_k0[bin] * negxF_corrunc;
 	if(aa.Prod_pdg ==2212) wgt = vbin_k0_inc_p[bin] * negxF_corrunc;
-	if(aa.Prod_pdg ==2112) wgt = vbin_k0_inc_n[bin] * negxF_corrunc;	
+	if(aa.Prod_pdg ==2112) wgt = vbin_k0_inc_n[bin] * negxF_corrunc;
       }
       else{
 	std::cout<<"MESINC Something is wrong with pdg_inc: "<< aa.Inc_pdg  <<" "<<aa.Prod_pdg<<std::endl;
@@ -193,7 +193,7 @@ namespace NeutrinoFluxReweight{
     else if(is_mesoninc){
       wgt = bin_mesonleftover_inc;
     }
-    
+
     if(wgt<0){
       //std::cout<<"TTMESONINC check wgt(<0) "<<iUniv<<" "<<aa.Inc_P<<" "<<aa.xF<<" "<<aa.Pt<<" "<<aa.Prod_pdg<<std::endl;
       // same as nucleon-A, cap it to near-0 instead of returning 1.
@@ -206,6 +206,6 @@ namespace NeutrinoFluxReweight{
     return wgt;
 
   }
-  
+
 
 }

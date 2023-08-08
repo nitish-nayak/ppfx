@@ -42,30 +42,30 @@ nu_g4numi::nu_g4numi(TChain* chain){
   fChain->SetBranchAddress("tpx",   &tpx);
   fChain->SetBranchAddress("tpy",   &tpy);
   fChain->SetBranchAddress("tpz",   &tpz);
-  
+
   fChain->SetBranchAddress("tvx",   &tvx);
   fChain->SetBranchAddress("tvy",   &tvy);
   fChain->SetBranchAddress("tvz",   &tvz);
-  
+
 
   fChain->SetBranchAddress("tptype",&tptype);
 
 
 
   fChain->SetMakeClass(1);
-  
+
   nu_g4numi::ntrees   = fChain->GetNtrees();
   nu_g4numi::nentries = fChain->GetEntries();
-  
+
 }
 
 void nu_g4numi::GetEntry(Int_t ientry){
-  
+
   fChain->GetEntry(ientry);
-  
+
 }
 
 nu_g4numi::~nu_g4numi(){
-  
+
 }
- 
+

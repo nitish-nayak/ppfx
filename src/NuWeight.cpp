@@ -5,12 +5,12 @@ const double rdet = 100.; //in cm
 namespace NeutrinoFluxAuxiliar{
 
   NuWeight::NuWeight(std::vector<double>& posdet){
-    
+
     particle = TDatabasePDG::Instance();
     NuWeight::enu  = -1.0;
     NuWeight::wgt  = -1.0;
     xdet = posdet[0];
-    ydet = posdet[1];    
+    ydet = posdet[1];
     zdet = posdet[2];
   }
   void NuWeight::calculate_weight(bsim::Dk2Nu* nu){
@@ -28,7 +28,7 @@ namespace NeutrinoFluxAuxiliar{
     else{
       mpar = particle->GetParticle(pdg)->Mass();
     }
-    
+
     double ppar  = sqrt( pow(nu->decay.pdpx,2) + pow(nu->decay.pdpy,2) + pow(nu->decay.pdpz,2) );
     double epar  = sqrt(pow(ppar,2)+pow(mpar,2));
     double gamma = epar / mpar;
@@ -36,16 +36,16 @@ namespace NeutrinoFluxAuxiliar{
 
     double rr = sqrt(pow(xdet-nu->decay.vx,2)+pow(ydet-nu->decay.vy,2)+pow(zdet-nu->decay.vz,2));
     double cos_theta = ( (nu->decay.pdpx)*(xdet-nu->decay.vx) + (nu->decay.pdpy)*(ydet-nu->decay.vy) + (nu->decay.pdpz)*(zdet-nu->decay.vz) )/ (ppar*rr);
- 
+
     if(cos_theta > 1 || cos_theta < -1){
       std::cout<< "Cosine of neutrino not allowed: "<<cos_theta<<std::endl;
       exit (1);
     }
     double MM      = 1.0/(gamma*(1.0-beta*cos_theta));
-    double angdet  = (pow(rdet,2) /pow(rr,2)/ 4.); 
+    double angdet  = (pow(rdet,2) /pow(rr,2)/ 4.);
     NuWeight::enu  =  MM*(nu->decay.necm);
     NuWeight::wgt  = angdet * pow(MM,2);
- 
+
     //done for all except polarized muon
     // in which case need to modify weight
     if (pdg == 13 || pdg == -13){
@@ -56,7 +56,7 @@ namespace NeutrinoFluxAuxiliar{
       vbeta[1] = nu->decay.pdpy / epar;
       vbeta[2] = nu->decay.pdpz / epar;
 
-      double p_nu[3]; //nu momentum    
+      double p_nu[3]; //nu momentum
       p_nu[0] = (xdet- nu->decay.vx) * (NuWeight::enu) / rr;
       p_nu[1] = (ydet- nu->decay.vy) * (NuWeight::enu) / rr;
       p_nu[2] = (zdet- nu->decay.vz) * (NuWeight::enu) / rr;
@@ -91,8 +91,8 @@ namespace NeutrinoFluxAuxiliar{
       //it can be 0 if mupar..=0. (I guess muons created in target??)
       if (p_pcm_mp[3] != 0. ) {
         //calc new decay angle w.r.t. (anti)spin direction
-        double costh = (p_dcm_nu[0]*p_pcm_mp[0]+ 
-                        p_dcm_nu[1]*p_pcm_mp[1]+ 
+        double costh = (p_dcm_nu[0]*p_pcm_mp[0]+
+                        p_dcm_nu[1]*p_pcm_mp[1]+
                         p_dcm_nu[2]*p_pcm_mp[2])/(p_dcm_nu[3]*p_pcm_mp[3]);
 
         if (costh>1.) costh = 1.;
@@ -103,7 +103,7 @@ namespace NeutrinoFluxAuxiliar{
           wt_ratio = 1.-costh;
         }
         else if(nu->decay.ntype == 14 || nu->decay.ntype == -14){
-          double mumass = particle->GetParticle(13)->Mass(); 
+          double mumass = particle->GetParticle(13)->Mass();
           double xnu = 2.* nu->decay.necm / mumass;
           wt_ratio = ( (3.-2.*xnu) - (1.-2.*xnu)*costh ) / (3.-2.*xnu);
         } else {
@@ -115,7 +115,7 @@ namespace NeutrinoFluxAuxiliar{
 
   }
   //////
-  NuWeight::~NuWeight(){ 
+  NuWeight::~NuWeight(){
   }
-    
+
 }

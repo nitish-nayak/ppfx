@@ -30,15 +30,15 @@ int idx_hel(int pdgdcode);
 
 /*!
  * Run the reweighting for a single file (inputFile) for
- * particular MIPP covariance matrix given in input.xml file. 
+ * particular MIPP covariance matrix given in input.xml file.
  */
-void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile, const char* cxxdet, const char* cyydet, const char* czzdet){ 
-  
+void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char* optionsFile, const char* cxxdet, const char* cyydet, const char* czzdet){
+
   const char* thisDir = getenv("PPFX_DIR");
   int idet = -1;
   bool doing_precalculated_pos = false;
-  
-  NeutrinoFluxAuxiliar::NuWeight* nuweight;			  
+
+  NeutrinoFluxAuxiliar::NuWeight* nuweight;
   if( std::string(cyydet) == "none" && std::string(czzdet) == "none" ){
     idet = atoi(cxxdet);
     doing_precalculated_pos = true;
@@ -50,17 +50,17 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     double zzdet = atof(czzdet); vdet.push_back(zzdet);
     nuweight = new NeutrinoFluxAuxiliar::NuWeight(vdet);
   }
-  
+
   std::cout<< "Instance of MakeReweight()" <<std::endl;
   MakeReweight* makerew = MakeReweight::getInstance();
-  makerew->SetOptions(optionsFile); 
-  
+  makerew->SetOptions(optionsFile);
+
   std::cout<<"Making an output file to store histograms"<<std::endl;
   TFile* fOut = new TFile(outputFile,"recreate");
   std::cout<<"File name: "<<fOut->GetName()<<std::endl;
-  
+
   int Nuniverses = makerew->GetNumberOfUniversesUsed();
-  
+
   TH1D* hnom[Nnuhel];
   TH1D* hcv[Nnuhel];
   TH1D* hthin[Nnuhel][Nuniverses];
@@ -68,7 +68,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   TH1D* hatt[Nnuhel][Nuniverses];
   TH1D* hothers[Nnuhel][Nuniverses];
   TH1D* htotal[Nnuhel][Nuniverses];
-  
+
   for(int ii=0;ii<Nnuhel;ii++){
     const TString xtitle = "E_{#nu} [GeV]";
     const TString ytitle = "##nu_{unoscillated} [m^{-2}]";
@@ -103,13 +103,13 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       htotal[ii][jj]->SetYTitle(ytitle);
     }
   }
-  
+
   //Loading ntuples:
-  TChain* chain_evts   = new TChain("dk2nuTree");  
-  TChain* chain_meta   = new TChain("dkmetaTree");  
-  bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;  
+  TChain* chain_evts   = new TChain("dk2nuTree");
+  TChain* chain_meta   = new TChain("dkmetaTree");
+  bsim::Dk2Nu*  dk2nu  = new bsim::Dk2Nu;
   bsim::DkMeta* dkmeta = new bsim::DkMeta;
-  
+
   std::cout<<" Adding ntuple at: "<<inputFile<<std::endl;
 
   chain_evts->Add(inputFile);
@@ -118,13 +118,13 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
 
   chain_meta->Add(inputFile);
   chain_meta->SetBranchAddress("dkmeta",&dkmeta);
-  chain_meta->GetEntry(0); //all entries are the same     
-  
+  chain_meta->GetEntry(0); //all entries are the same
+
   std::string detname = "UserPosition";
   if(doing_precalculated_pos){
     detname = (dkmeta->location)[idet].name;
   }
-  std::cout<<"=> Doing the analysis for: "<< detname <<std::endl; 
+  std::cout<<"=> Doing the analysis for: "<< detname <<std::endl;
 
   std::vector<double> vwgt_mipp_pi;
   std::vector<double> vwgt_mipp_K;
@@ -137,30 +137,30 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
   std::vector<double> vwgt_ttnua;
   std::vector<double> vwgt_ttmesinc;
   std::vector<double> vwgt_oth;
- 
+
   std::cout<<"N of entries: "<<nentries<<std::endl;
   double fluxWGT  = 0;
   double nuenergy = 0;
 
-  for(int ii=0;ii<nentries;ii++){  
+  for(int ii=0;ii<nentries;ii++){
     if(ii%1000==0)std::cout<<ii/1000<<" k evts"<<std::endl;
-    vwgt_mipp_pi.clear();  
-    vwgt_mipp_K.clear();  
-    vwgt_abs.clear();  
-    vwgt_att.clear();  
-    vwgt_ttpCpi.clear();  
-    vwgt_ttpCk.clear();  
-    vwgt_ttnCpi.clear();  
-    vwgt_ttpCnu.clear();  
+    vwgt_mipp_pi.clear();
+    vwgt_mipp_K.clear();
+    vwgt_abs.clear();
+    vwgt_att.clear();
+    vwgt_ttpCpi.clear();
+    vwgt_ttpCk.clear();
+    vwgt_ttnCpi.clear();
+    vwgt_ttpCnu.clear();
     vwgt_ttmesinc.clear();
-    vwgt_ttnua.clear();  
-    vwgt_oth.clear(); 
-     
-    chain_evts->GetEntry(ii);     
+    vwgt_ttnua.clear();
+    vwgt_oth.clear();
+
+    chain_evts->GetEntry(ii);
     makerew->calculateWeights(dk2nu,dkmeta);
     if(doing_precalculated_pos){
       fluxWGT = ( (dk2nu->nuray)[idet].wgt )*(dk2nu->decay.nimpwt)/3.1416;
-      nuenergy = (dk2nu->nuray)[idet].E; 
+      nuenergy = (dk2nu->nuray)[idet].E;
     }
     else{
       nuweight->calculate_weight(dk2nu);
@@ -169,7 +169,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     }
 
     int nuidx = idx_hel(dk2nu->decay.ntype);
-        
+
     if(nuidx<0){
       std::cout<<"=> Wrong neutrino file"<<std::endl;
     }
@@ -177,7 +177,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     hcv[nuidx]->Fill(nuenergy,fluxWGT*makerew->GetCVWeight());
 
     vwgt_mipp_pi = makerew->GetWeights("MIPPNumiPionYields");
-    vwgt_mipp_K  = makerew->GetWeights("MIPPNumiKaonYields"); 
+    vwgt_mipp_K  = makerew->GetWeights("MIPPNumiKaonYields");
     vwgt_abs     = makerew->GetWeights("TotalAbsorption");
     vwgt_att     = makerew->GetWeights("TargetAttenuation");
     vwgt_ttpCpi  = makerew->GetWeights("ThinTargetpCPion");
@@ -186,9 +186,9 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     vwgt_ttpCnu  = makerew->GetWeights("ThinTargetpCNucleon");
     vwgt_ttmesinc= makerew->GetWeights("ThinTargetMesonIncident");
     vwgt_ttnua   = makerew->GetWeights("ThinTargetnucleonA");
-    vwgt_oth     = makerew->GetWeights("Other"); 
+    vwgt_oth     = makerew->GetWeights("Other");
 
-    
+
     for(int jj=0;jj<Nuniverses;jj++){
       double wgt_thin = vwgt_ttpCpi[jj]*vwgt_ttpCk[jj]*vwgt_ttnCpi[jj]*vwgt_ttpCnu[jj]*vwgt_ttmesinc[jj]*vwgt_ttnua[jj];
       double wgt_mipp = vwgt_mipp_pi[jj]*vwgt_mipp_K[jj];
@@ -204,7 +204,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
 
   std::cout<<"storing general histos"<<std::endl;
   fOut->cd();
-  
+
   fOut->mkdir("nom");
   for(int ii=0;ii<Nnuhel;ii++){
     fOut->mkdir(Form("%s_thintarget",nuhel[ii]));
@@ -213,7 +213,7 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
     fOut->mkdir(Form("%s_others",nuhel[ii]));
     fOut->mkdir(Form("%s_total",nuhel[ii]));
   }
-  
+
   for(int ii=0;ii<Nnuhel;ii++){
     fOut->cd("nom");
     hnom[ii]->Write();
@@ -223,17 +223,17 @@ void doReweight_dk2nu(const char* inputFile, const char* outputFile, const char*
       fOut->cd(Form("%s_mippnumi"   ,nuhel[ii]));  hmipp[ii][jj]->Write();
       fOut->cd(Form("%s_attenuation",nuhel[ii]));  hatt[ii][jj]->Write();
       fOut->cd(Form("%s_others"     ,nuhel[ii]));  hothers[ii][jj]->Write();
-      fOut->cd(Form("%s_total"      ,nuhel[ii]));  htotal[ii][jj]->Write();      
+      fOut->cd(Form("%s_total"      ,nuhel[ii]));  htotal[ii][jj]->Write();
     }
   }
-  
+
   //Releasing memory:
   makerew->resetInstance();
-  
+
   std::cout<<"End of run()"<<std::endl;
 
 }
-  
+
 int idx_hel(int pdgcode){
   int idx = -1;
   if(pdgcode ==  14)idx = 0;
@@ -262,8 +262,8 @@ void usage(){
 #ifndef __CINT__
 int main(int argc, const char* argv[]){
 
-  if(argc==5){   
-    doReweight_dk2nu(argv[1],argv[2],argv[3],argv[4],"none","none");    
+  if(argc==5){
+    doReweight_dk2nu(argv[1],argv[2],argv[3],argv[4],"none","none");
   }
   else if(argc==7){
     doReweight_dk2nu(argv[1],argv[2],argv[3],argv[4],argv[5],argv[6]);
@@ -272,7 +272,7 @@ int main(int argc, const char* argv[]){
     usage();
     exit (1);
     }
-  
+
   return 0;
 }
 #endif

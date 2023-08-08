@@ -3,8 +3,8 @@
 #include "ParameterTable.h"
 #include "Exceptions.h"
 
-namespace NeutrinoFluxReweight{ 
-  
+namespace NeutrinoFluxReweight{
+
   void ParameterTable::setParameter(Parameter p){
     if(m_vectorMode){
       m_vector.push_back(p);
@@ -18,7 +18,7 @@ namespace NeutrinoFluxReweight{
     mapify();
     Parameter pOut;
     boost::interprocess::flat_map<std::string, double>::const_iterator it=table.find(name);
-    
+
     if(it!=table.end()){
       pOut.first  = name;
       pOut.second = it->second;
@@ -27,7 +27,7 @@ namespace NeutrinoFluxReweight{
       throw NoParameterFound(name);
     }
     return pOut;
-    
+
   }
 
   double ParameterTable::getParameterValue(const std::string& name) const {
@@ -35,22 +35,22 @@ namespace NeutrinoFluxReweight{
 
     double val;
     boost::interprocess::flat_map<std::string, double>::const_iterator it=table.find(name);
-    
+
     if(it!=table.end()){
       val = it->second;
     }
     else{
       throw NoParameterFound(name);
     }
-    
+
     return val;
-    
+
   }
 
   bool ParameterTable::hasParameter(const std::string& name) const {
     mapify();
     return table.find(name)!=table.end();
-  }  
+  }
 
   void ParameterTable::mapify() const
   {
