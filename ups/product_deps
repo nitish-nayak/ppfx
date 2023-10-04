@@ -87,7 +87,7 @@
 #>  define_pythonpath
 ####################################
 parent		ppfx
-defaultqual	e20
+defaultqual	e26
 ####################################
 
 ####################################
@@ -254,8 +254,8 @@ product		version		qual	flags		<table_format=2>
 dk2nudata	v01_10_01d	-
 dk2nugenie	v01_10_01k	-
 ifdh_art	v2_15_06	-
-nufinder        v1_01_01       -
-nusimdata	v1_27_01	-
+nufinder        v1_01_02       -
+nusimdata	v1_27_02	-
 cetmodules	v3_20_00	-	only_for_build
 end_product_list
 ####################################
@@ -314,12 +314,8 @@ end_product_list
 qualifier	dk2nugenie	dk2nudata	ifdh_art	nusimdata	nufinder
 c14:debug	c14:debug	c14:debug	c14:debug	c14:debug	-nq-
 c14:prof	c14:prof	c14:prof	c14:prof	c14:prof       	-nq-
-c7:debug	c7:debug	c7:debug	c7:debug	c7:debug       	-nq-
-c7:prof		c7:prof		c7:prof		c7:prof       	c7:prof		-nq-
 e26:debug	e26:debug	e26:debug	e26:debug       e26:debug	-nq-
 e26:prof	e26:prof	e26:prof	e26:prof       	e26:prof	-nq-
-e20:debug	e20:debug	e20:debug	e20:debug       e20:debug	-nq-
-e20:prof	e20:prof	e20:prof	e20:prof       	e20:prof	-nq-
 end_qualifier_list
 ####################################
 
