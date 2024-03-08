@@ -17,7 +17,7 @@
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 find_package(cetmodules REQUIRED)
-project(ppfx VERSION 02.19.03 LANGUAGES CXX)
+project(ppfx VERSION 02.19.04 LANGUAGES CXX)
 
 # cetbuildtools contains our cmake modules
 
@@ -30,15 +30,12 @@ cet_set_compiler_flags(DIAGS CAUTIOUS WERROR
 cet_report_compiler_flags(REPORT_THRESHOLD VERBOSE)
 
 find_package(nufinder REQUIRED EXPORT)
-find_package(nusimdata REQUIRED)
 
 find_package( art        REQUIRED )
-find_package(GENIE REQUIRED)
+#find_package(GENIE REQUIRED)
 find_package( dk2nudata  REQUIRED )
-find_package( dk2nugenie REQUIRED )
-find_package( FFTW3      REQUIRED )
+##find_package( dk2nugenie REQUIRED )
 find_package( libwda     REQUIRED )
-find_package(PostgreSQL REQUIRED)
 find_package(Boost COMPONENTS headers filesystem REQUIRED EXPORT)
 find_package( ROOT REQUIRED COMPONENTS Tree EG EXPORT)
 

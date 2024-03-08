@@ -92,7 +92,7 @@
             },
             "ppfx_UPS_BUILD_ONLY_DEPENDENCIES_INIT" : {
                "type" : "STRING",
-               "value" : "cetmodules"
+               "value" : "cetmodules;nufinder"
             },
             "ppfx_UPS_PRODUCT_FLAVOR_INIT" : {
                "type" : "STRING",
