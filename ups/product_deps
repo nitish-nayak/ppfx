@@ -251,7 +251,7 @@ fwdir	product_dir	xml
 #
 ####################################
 product		version		qual	flags		<table_format=2>
-dk2nugenie	v01_10_01n	-
+dk2nudata	v01_10_01g	-
 ifdh_art	v2_17_04	-
 nufinder        v1_02_01       -
 cetmodules	v3_24_01	-	only_for_build
@@ -309,7 +309,7 @@ end_product_list
 #   case it is optional.
 #
 ####################################
-qualifier	dk2nugenie	ifdh_art	nufinder
+qualifier	dk2nudata	ifdh_art	nufinder
 c14:debug	c14:debug	c14:debug	-nq-
 c14:prof	c14:prof	c14:prof	-nq-
 e26:debug	e26:debug	e26:debug	-nq-
