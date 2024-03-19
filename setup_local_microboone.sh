@@ -11,6 +11,7 @@ setup(){
     # setup for jobsub client
     # according to the prescription in Mike Kirby's talk
     # minerva doc-10551, Dec 2014 (same doc can be found for other experiments)
+    export PPFX_DIR="${PWD}"
     export LD_LIBRARY_PATH=$PPFX_DIR/lib:$LD_LIBRARY_PATH
     # echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 }
