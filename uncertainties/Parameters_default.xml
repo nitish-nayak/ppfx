@@ -113,17 +113,17 @@
 
 <ThinTarget_prt_incident_pip>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_prt_incident_pip>
 
 <ThinTarget_prt_incident_pim>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_prt_incident_pim>
 
 <ThinTarget_prt_incident_kap>
 <cvs>1.2 1.2 1.2 1.2 1.0 1.0 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_prt_incident_kap>
 
 <ThinTarget_prt_incident_kam>
@@ -153,17 +153,17 @@
 
 <ThinTarget_neu_incident_pip>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_neu_incident_pip>
 
 <ThinTarget_neu_incident_pim>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_neu_incident_pim>
 
 <ThinTarget_neu_incident_kap>
 <cvs>1.2 1.2 1.2 1.2 1.0 1.0 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_neu_incident_kap>
 
 <ThinTarget_neu_incident_kam>
@@ -193,17 +193,17 @@
 
 <ThinTarget_pip_incident_pip>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_pip_incident_pip>
 
 <ThinTarget_pip_incident_pim>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_pip_incident_pim>
 
 <ThinTarget_pip_incident_kap>
 <cvs>1.2 1.2 1.2 1.2 1.0 1.0 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_pip_incident_kap>
 
 <ThinTarget_pip_incident_kam>
@@ -228,17 +228,17 @@
 
 <ThinTarget_pim_incident_pip>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_pim_incident_pip>
 
 <ThinTarget_pim_incident_pim>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_pim_incident_pim>
 
 <ThinTarget_pim_incident_kap>
 <cvs>1.2 1.2 1.2 1.2 1.0 1.0 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_pim_incident_kap>
 
 <ThinTarget_pim_incident_kam>
@@ -263,17 +263,17 @@
 
 <ThinTarget_kap_incident_pip>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_kap_incident_pip>
 
 <ThinTarget_kap_incident_pim>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_kap_incident_pim>
 
 <ThinTarget_kap_incident_kap>
 <cvs>1.2 1.2 1.2 1.2 1.0 1.0 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_kap_incident_kap>
 
 <ThinTarget_kap_incident_kam>
@@ -298,17 +298,17 @@
 
 <ThinTarget_kam_incident_pip>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_kam_incident_pip>
 
 <ThinTarget_kam_incident_pim>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_kam_incident_pim>
 
 <ThinTarget_kam_incident_kap>
 <cvs>1.2 1.2 1.2 1.2 1.0 1.0 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_kam_incident_kap>
 
 <ThinTarget_kam_incident_kam>
@@ -333,17 +333,17 @@
 
 <ThinTarget_k0_incident_pip>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_k0_incident_pip>
 
 <ThinTarget_k0_incident_pim>
 <cvs>1.4 1.4 1.4 1.4 1.2 1.2 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_k0_incident_pim>
 
 <ThinTarget_k0_incident_kap>
 <cvs>1.2 1.2 1.2 1.2 1.0 1.0 1.8 1.8</cvs>
-<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4</errs>
+<errs>0.4 0.4 0.4 0.4 0.4 0.4 0.8 0.8</errs>
 </ThinTarget_k0_incident_kap>
 
 <ThinTarget_k0_incident_kam>
