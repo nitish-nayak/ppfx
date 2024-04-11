@@ -27,18 +27,16 @@ namespace NeutrinoFluxReweight{
     mom_inc.push_back(70);mom_inc.push_back(80);
     mom_inc.push_back(90);mom_inc.push_back(100);
     mom_inc.push_back(110);mom_inc.push_back(120);
-    
-    TFile* ftot = new TFile(Form("%s/MC/FTFP/tot_prod_FTFP_BERT.root", dirData), "read");
+
+    // reads in fraction of production to total yields (including QE/fragmentation etc)
+    TFile* ftot = new TFile(Form("%s/MC/FTFP/frac_prod_FTFP_BERT.root", dirData), "read");
     int incE = 0;
     for(int i = 0; i < 13; i++){
       if(i < 12) incE = mom_inc[i];
       else incE = 158;
-      TH1D* htot = (TH1D*)ftot->Get(Form("tot_prod_xs_%dGeV", incE));
+      TH1D* htot = (TH1D*)ftot->Get(Form("frac_prod_xs_%dGeV", incE));
       xx[i] = incE;
       yy[i] = htot->Integral();
-    }
-    for(int i = 0; i < 13; i++){
-      yy[i] = yy[i]/yy[12];
     }
     ftot->Close();
 
@@ -166,7 +164,7 @@ namespace NeutrinoFluxReweight{
 
   ////////////////////
 double ThinTargetMC::getMCxs_pC_piK(int genid, double inc_mom){
-    
+
     int idx_lowp = -1;
     int idx_hip  = -1;
     for(int i=0;i<12;i++){
@@ -178,8 +176,9 @@ double ThinTargetMC::getMCxs_pC_piK(int genid, double inc_mom){
     double frac_low = yy[idx_lowp];
     double frac_hi  = yy[idx_hip];
     double frac_m   =  frac_low + (inc_mom-double(xx[idx_lowp]))*(frac_hi-frac_low)/(double(xx[idx_hip])-double(xx[idx_lowp]));
-    
-    if(genid==0)return frac_m*220.28099;
+
+    // 247.35752 is total pC xsec at 120 GeV (including QE/fragmentation etc)
+    if(genid==0)return frac_m*247.35752;
     else if(genid>0)return frac_m;
     else{
       std::cout<<"Something is wrong with gen "<<std::endl;
@@ -189,7 +188,7 @@ double ThinTargetMC::getMCxs_pC_piK(int genid, double inc_mom){
   }
   /////
 double ThinTargetMC::getMCxs_pC_nucleon(int genid, int pdg, double inc_mom){
-    
+
     int idx_lowp = -1;
     int idx_hip  = -1;
     for(int i=0;i<12;i++){
@@ -201,11 +200,11 @@ double ThinTargetMC::getMCxs_pC_nucleon(int genid, int pdg, double inc_mom){
     double frac_low = yy[idx_lowp];
     double frac_hi  = yy[idx_hip];
     double frac_m   =  frac_low + (inc_mom-double(xx[idx_lowp]))*(frac_hi-frac_low)/(double(xx[idx_hip])-double(xx[idx_lowp]));
-    
-    if(genid==0 && pdg==2212)return frac_m*220.28099;
+
+    if(genid==0 && pdg==2212)return frac_m*247.35752;
     if(genid>0  && pdg==2212)return frac_m;
     if(genid==0 && pdg==2112)return frac_m;
-    if(genid>0  && pdg==2112)return frac_m/220.28099;
+    if(genid>0  && pdg==2112)return frac_m/247.35752;
     return 1.0;
 
   }
