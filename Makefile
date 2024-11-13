@@ -8,7 +8,7 @@ CC	=	g++
 COPTS	=	-fPIC -DLINUX -O0  -g $(shell root-config --cflags) 
 FLAGS   =       -g
 
-all:    lib programs doxy
+all:    lib programs
 
 lib: libppfx.so 
 
